@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ww.dao.PayMapper">
+	<resultMap id="BaseResultMap" type="com.ww.model.Pay">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="pay_emNumber" property="payEmnumber" jdbcType="VARCHAR" />
+		<result column="pay_emName" property="payEmname" jdbcType="VARCHAR" />
+		<result column="pay_month" property="payMonth" jdbcType="VARCHAR" />
+		<result column="pay_baseMoney" property="payBasemoney"
+			jdbcType="INTEGER" />
+		<result column="pay_overtime" property="payOvertime" jdbcType="INTEGER" />
+		<result column="pay_age" property="payAge" jdbcType="INTEGER" />
+		<result column="pay_check" property="payCheck" jdbcType="REAL" />
+		<result column="pay_absent" property="payAbsent" jdbcType="REAL" />
+		<result column="pay_safety" property="paySafety" jdbcType="REAL" />
+	</resultMap>
+	
+	<sql id="Base_Column_List">
+		id, pay_emNumber, pay_emName, pay_month, pay_baseMoney, pay_overtime,
+		pay_age, pay_check,
+		pay_absent, pay_safety
+  	</sql>
+  	
+  	
+  	
+  	<!-- 查询薪资表 -->
+	<select id="selectPay" resultMap="BaseResultMap">
+		SELECT id,pay_emName,pay_month,pay_baseMoney,pay_overtime*20 as
+		pay_overtime,pay_age*50 as pay_age,pay_check,pay_absent,pay_safety
+		,pay_baseMoney+pay_overtime*20+pay_age*50+pay_check-pay_safety as pay
+		from tb_pay   
+  	</select>
+
+	<!-- 通过模糊姓名查询薪资表 -->
+	<select id="selectList" resultMap="BaseResultMap">
+		select id,pay_emName,pay_month,pay_baseMoney,pay_overtime*20 as
+		pay_overtime,pay_age*50 as pay_age,pay_check,pay_absent,pay_safety
+		,pay_baseMoney+pay_overtime*20+pay_age*50+pay_check-pay_safety as pay
+		from tb_pay where pay_emName like concat("%",#{payEmname},"%")
+	</select>
+
+	<!-- 通过日期查询薪资表 -->
+	<select id="selectDate" resultMap="BaseResultMap">
+		select id,pay_emName,pay_month,pay_baseMoney,pay_overtime*20 as
+		pay_overtime,pay_age*50 as pay_age,pay_check,pay_absent,pay_safety
+		,pay_baseMoney+pay_overtime*20+pay_age*50+pay_check-pay_safety as pay
+		from tb_pay where pay_month=#{payMonth} 	
+  	</select>
+  	
+  	<!-- 删除 -->
+  	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from tb_pay
+		where id = #{id,jdbcType=INTEGER}
+  	</delete>
+	  	
+  	<!-- 新增 -->
+  	<insert id="insert" parameterType="com.ww.model.Pay">
+		insert into tb_pay (id, pay_emNumber, pay_emName,
+		pay_month, pay_baseMoney, pay_overtime,
+		pay_age, pay_check, pay_absent,
+		pay_safety)
+		values (#{id,jdbcType=INTEGER}, #{payEmnumber,jdbcType=VARCHAR},
+		#{payEmname,jdbcType=VARCHAR},
+		#{payMonth,jdbcType=VARCHAR}, #{payBasemoney,jdbcType=INTEGER}, #{payOvertime,jdbcType=INTEGER},
+		#{payAge,jdbcType=INTEGER}, #{payCheck,jdbcType=REAL},
+		#{payAbsent,jdbcType=REAL},
+		#{paySafety,jdbcType=REAL})
+  	</insert>
+
+
+	
+</mapper>

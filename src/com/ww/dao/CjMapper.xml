@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ww.dao.CjMapper">
+	<resultMap id="BaseResultMap" type="com.ww.model.Cj">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="cj_title" property="cjTitle" jdbcType="VARCHAR" />
+		<result column="cj_type" property="cjType" jdbcType="VARCHAR" />
+		<result column="cj_money" property="cjMoney" jdbcType="VARCHAR" />
+		<result column="cj_time" property="cjTime" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<!-- 查询奖惩表(cj) -->
+	<select id="selectCj" resultMap="BaseResultMap">
+		select * from tb_cj
+  	</select>
+
+	<!-- 通过模糊标题查询奖惩表 -->
+	<select id="selectListByCj" resultMap="BaseResultMap">
+		select * from tb_cj 
+		where cj_title like concat("%",#{cjTitle},"%")
+	</select>
+
+	<!-- 通过日期查询奖惩表 -->
+	<select id="selectDateByCj" resultMap="BaseResultMap">
+		select * from tb_cj 
+		where cj_time=#{cjTime} 	
+  	</select>
+
+	<!-- 通过id来删除奖惩信息 -->
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from tb_cj
+		where id = #{id,jdbcType=INTEGER}
+  	</delete>
+  	
+	<!-- 添加奖惩信息 -->
+	<insert id="insert" parameterType="com.ww.model.Cj">
+		insert into tb_cj (id, cj_title, cj_type,
+		cj_money, cj_time, cj_content
+		)
+		values (#{id,jdbcType=INTEGER}, #{cjTitle,jdbcType=VARCHAR},
+		#{cjType,jdbcType=VARCHAR},
+		#{cjMoney,jdbcType=VARCHAR}, #{cjTime,jdbcType=VARCHAR}, #{cjContent,jdbcType=LONGVARCHAR}
+		)
+  	</insert>
+
+
+</mapper>

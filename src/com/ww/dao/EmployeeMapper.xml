@@ -1,0 +1,97 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ww.dao.EmployeeMapper">
+	<!-- 员工信息结果集 -->
+	<resultMap id="BaseResultMap" type="com.ww.model.Employee">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="em_serialNumber" property="emSerialnumber"
+			jdbcType="VARCHAR" />
+		<result column="em_name" property="emName" jdbcType="VARCHAR" />
+		<result column="em_sex" property="emSex" jdbcType="VARCHAR" />
+		<result column="em_age" property="emAge" jdbcType="INTEGER" />
+		<result column="em_IDCard" property="emIdcard" jdbcType="VARCHAR" />
+		<result column="em_born" property="emBorn" jdbcType="VARCHAR" />
+		<result column="em_nation" property="emNation" jdbcType="VARCHAR" />
+		<result column="em_marriage" property="emMarriage" jdbcType="VARCHAR" />
+		<result column="em_visage" property="emVisage" jdbcType="VARCHAR" />
+		<result column="em_ancestralHome" property="emAncestralhome"
+			jdbcType="VARCHAR" />
+		<result column="em_tel" property="emTel" jdbcType="VARCHAR" />
+		<result column="em_address" property="emAddress" jdbcType="VARCHAR" />
+		<result column="em_afterSchool" property="emAfterschool"
+			jdbcType="VARCHAR" />
+		<result column="em_speciality" property="emSpeciality"
+			jdbcType="VARCHAR" />
+		<result column="em_culture" property="emCulture" jdbcType="VARCHAR" />
+		<result column="em_startime" property="emStartime" jdbcType="VARCHAR" />
+		<result column="em_departmentId" property="emDepartmentid"
+			jdbcType="INTEGER" />
+		<result column="em_typeWork" property="emTypework" jdbcType="VARCHAR" />
+		<result column="em_creatime" property="emCreatime" jdbcType="VARCHAR" />
+		<result column="em_createName" property="emCreatename"
+			jdbcType="VARCHAR" />
+		<result column="em_bz" property="emBz" jdbcType="VARCHAR" />
+		<!-- 数据库的字段对应类中的属性，将其保存在BaseResultMap中 ，再转入com.ww.model.Employee -->
+		<result column="dt_name" property="dtName" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<!-- 通过id来修改员工信息 -->
+	<update id="updateEmployeeById" parameterType="com.ww.model.Employee">
+		update tb_employee e set e.em_name = #{emName},e.em_sex =
+		#{emSex},e.em_culture =#{emCulture},e.em_departmentId =
+		#{emDepartmentid} ,e.em_typeWork = #{emTypework},e.em_creatime =
+		#{emCreatime} where e.id = #{id}
+  	</update>
+
+	<!--员工分页查询() -->
+	<select id="queryGoodsByPage" resultMap="BaseResultMap">
+		select e.id,e.em_name
+		,e.em_sex,d.dt_name,e.em_typeWork,e.em_culture,e.em_creatime from
+		tb_employee e,tb_department d WHERE e.em_departmentId=d.id limit
+		#{startIndex},#{pagesize}
+  	</select>
+
+	<select id="queryGoodsTotal" resultType="int">
+		select count(*) from
+		tb_employee
+  	</select>
+
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from
+		tb_employee
+		where id = #{id,jdbcType=INTEGER}
+  	</delete>
+
+	<insert id="insert" parameterType="com.ww.model.Employee">
+		insert into tb_employee (id,
+		em_serialNumber, em_name,
+		em_sex, em_age, em_IDCard,
+		em_born, em_nation,
+		em_marriage,
+		em_visage, em_ancestralHome, em_tel,
+		em_address,
+		em_afterSchool, em_speciality,
+		em_culture, em_startime,
+		em_departmentId,
+		em_typeWork, em_creatime, em_createName,
+		em_bz)
+		values
+		(#{id,jdbcType=INTEGER}, #{emSerialnumber,jdbcType=VARCHAR},
+		#{emName,jdbcType=VARCHAR},
+		#{emSex,jdbcType=VARCHAR},
+		#{emAge,jdbcType=INTEGER}, #{emIdcard,jdbcType=VARCHAR},
+		#{emBorn,jdbcType=VARCHAR}, #{emNation,jdbcType=VARCHAR},
+		#{emMarriage,jdbcType=VARCHAR},
+		#{emVisage,jdbcType=VARCHAR},
+		#{emAncestralhome,jdbcType=VARCHAR}, #{emTel,jdbcType=VARCHAR},
+		#{emAddress,jdbcType=VARCHAR}, #{emAfterschool,jdbcType=VARCHAR},
+		#{emSpeciality,jdbcType=VARCHAR},
+		#{emCulture,jdbcType=VARCHAR},
+		#{emStartime,jdbcType=VARCHAR}, #{emDepartmentid,jdbcType=INTEGER},
+		#{emTypework,jdbcType=VARCHAR}, #{emCreatime,jdbcType=VARCHAR},
+		#{emCreatename,jdbcType=VARCHAR},
+		#{emBz,jdbcType=VARCHAR})
+  </insert>
+
+
+</mapper>

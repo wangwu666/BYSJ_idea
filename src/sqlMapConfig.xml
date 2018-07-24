@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC
+ "-//mybatis.org//DTD Config 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+	<mappers>
+		<mapper resource="com/ww/dao/CjMapper.xml" />
+		<mapper resource="com/ww/dao/DepartmentMapper.xml" />
+		<mapper resource="com/ww/dao/InvitejobMapper.xml" />
+		<mapper resource="com/ww/dao/PayMapper.xml" />
+		<mapper resource="com/ww/dao/ManagerMapper.xml" />
+		<mapper resource="com/ww/dao/EmployeeMapper.xml" />
+	</mappers>
+</configuration>

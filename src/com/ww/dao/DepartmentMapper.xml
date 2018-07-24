@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ww.dao.DepartmentMapper">
+
+	<resultMap id="BaseResultMap" type="com.ww.model.Department">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="dt_name" property="dtName" jdbcType="VARCHAR" />
+		<result column="dt_createTime" property="dtCreatetime"
+			jdbcType="VARCHAR" />
+		<result column="dt_bz" property="dtBz" jdbcType="VARCHAR" />
+	</resultMap>
+
+
+	<!-- 查询显示部门表 -->
+	<select id="selectDepartment" resultMap="BaseResultMap" >
+		select * from tb_department
+  	</select>
+
+	<!-- 查询显示部门表 -->
+	<select id="selectDepartmentByName" resultMap="BaseResultMap">
+		select * from
+		tb_department where dt_name=#{dtName}
+	</select>
+
+	<!-- 添加部门 -->
+	<insert id="insert" parameterType="com.ww.model.Department">
+		insert into tb_department (id,
+		dt_name, dt_createTime,
+		dt_bz)
+		values (#{id,jdbcType=INTEGER},
+		#{dtName,jdbcType=VARCHAR},
+		#{dtCreatetime,jdbcType=VARCHAR},
+		#{dtBz,jdbcType=VARCHAR})
+  	</insert>
+
+	<!-- 通过编号删除部门 -->
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from
+		tb_department
+		where id = #{id,jdbcType=INTEGER}
+  	</delete>
+
+
+
+</mapper>
