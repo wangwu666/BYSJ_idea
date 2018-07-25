@@ -43,7 +43,6 @@ public class CjController {
 			PrintWriter out = response.getWriter();
 			out.println("<script>alert('添加奖惩成功！');window.location.href='selectCj.do';</script>");
 		}
-		System.out.println("测试提交到远程仓库");
 	}
 	
 	/**
