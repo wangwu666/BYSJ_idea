@@ -73,6 +73,8 @@ public class CjController {
 		String date = request.getParameter("date");
 		List<Cj> list = cjService.selectListByCj(date);
 		request.setAttribute("list", list);
+		//测试提交
+		System.out.println("wangwu tianjia");
 		return "jsp/cj/SelectCj.jsp";
 	}
 	
