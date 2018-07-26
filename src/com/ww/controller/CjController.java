@@ -75,6 +75,11 @@ public class CjController {
 		request.setAttribute("list", list);
 		//测试提交
 		System.out.println("wangwu tianjia");
+
+		//王文添加
+		System.out.println("王文添加");
+
+
 		return "jsp/cj/SelectCj.jsp";
 	}
 	
